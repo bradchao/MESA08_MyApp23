@@ -19,17 +19,41 @@
         </style>
     </head>
     <body>
+        <input type="button" onclick="calcRoute()" value="OK">
         <div id="map"></div>
         <script>
-            var map;
+            var directionsDisplay;
+            var directionsService = new google.maps.DirectionsService();            var map;
             function initMap() {
+                directionsDisplay = new google.maps.DirectionsRenderer();
                 map = new google.maps.Map(document.getElementById('map'), {
-                                          center: {lat: -34.397, lng: 150.644},
+                                          center: {lat: 24.155769, lng: 120.671219},
                                           zoom: 8
                                           });
+              directionsDisplay.setMap(map);
             }
+        
+        function calcRoute() {
+            alert('OK222')
+            var start = {lat: 24.155769, lng: 120.671219};
+            var end = {lat: 24.160399, lng: 120.678450};
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: 'DRIVING'
+            };
+            directionsService.route(request, function(result, status) {
+                                    if (status == 'OK') {
+                                    alert('hh')
+                                    directionsDisplay.setDirections(result);
+                                    }else{
+                                        alert('XX')
+                                    }
+                                    });
+        }
+        
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEYFBffPgYkjRWplsuQqJrKtef7gpt2oU&callback=initMap"
             async defer></script>
         <script>
             function test1(newlat, newlng){
